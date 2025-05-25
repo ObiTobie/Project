@@ -1,4 +1,5 @@
-if __f and api and Client then
+if __f and Client then
+	local api = __f['__load']("https://sdkapi-public.luarmor.net/library.lua")
 	if __f['__game']() then
 		api.script_id = __f['__game']();
 	else
@@ -20,7 +21,6 @@ if __f and api and Client then
 		end
 	end
 else
-	print(api)
 	warn(__f)
 	print(Client)
 end
