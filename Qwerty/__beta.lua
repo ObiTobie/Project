@@ -20,5 +20,7 @@ if __f and api and Client then
 		end
 	end
 else
-	print("thua")
+	print(api)
+	warn(__f)
+	print(Client)
 end
