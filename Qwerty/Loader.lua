@@ -33,6 +33,13 @@ end
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until Client
 
+--// Request
+if http then
+	Request_Var = http.request
+else
+	Request_Var = request
+end
+
 --// Blacklist Executor
 
 if getexecutorname then
@@ -115,6 +122,24 @@ if not(disable_auto_exec) then
 		warn("error "..err)
 	end)
 end
+
+--// Jojn Discord
+Request_Var({
+	Url = "http://127.0.0.1:6463/rpc?v=1",
+	Method = "POST",
+	Headers = {
+		["Content-Type"] = "application/json",
+		["origin"] = "https://discord.com",
+	},
+	Body = HttpService:JSONEncode(
+		{
+			["args"] = {
+				["code"] = "v5CJQneD9g",
+			},
+			["cmd"] = "INVITE_BROWSER",
+			["nonce"] = "."
+		})
+})
 
 --// Load Scripts
 __f = {
