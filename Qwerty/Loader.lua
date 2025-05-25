@@ -124,7 +124,7 @@ __f = {
 	['__load'] = function(s : string) (load or loadstring)(game:HttpGet(s))() end;
 }
 
-local api = __f['__load']("https://sdkapi-public.luarmor.net/library.lua")
+local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
 
 if __f['__game']() then
 	api.script_id = __f['__game']();
