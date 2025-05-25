@@ -60,27 +60,6 @@ task.spawn(function(InitializeService)
 	end
 end)
 
---// Auto Execute
-if not(disable_auto_exec) then
-	xpcall(function()
-		local queueonteleport = queueonteleport or queue_on_teleport or (syn and syn.queue_on_teleport) or (fluxus and fluxus.queue_on_teleport)
-		if queueonteleport then
-			if script_key then
-				queueonteleport([[
-				script_key="]] .. script_key .. [[";
-				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
-				]])
-			else
-				queueonteleport([[
-				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
-				]])
-			end
-		end
-	end, function(err : string)
-		warn("error "..err)
-	end)
-end
-
 --// Key Saved
 if not isfolder or not readfile or not makefolder then
 	Client:Kick("Shitty Executor [2]")
@@ -107,8 +86,34 @@ else
 	Config = {}
 end
 
-Collection.__Save = function()
-	writefile("Qwerty/KeySaved.json", HttpService:JSONEncode(Config))
+Collection.__Save = function(Data)
+	writefile("Qwerty/KeySaved.json", HttpService:JSONEncode(Data))
+end
+
+--// Auto Execute
+if not(disable_auto_exec) then
+	xpcall(function()
+		local queueonteleport = queueonteleport or queue_on_teleport or (syn and syn.queue_on_teleport) or (fluxus and fluxus.queue_on_teleport)
+		if queueonteleport then
+			if script_key then
+				queueonteleport([[
+				script_key="]] .. script_key .. [[";
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
+				]])
+			elseif Config.Key then
+				queueonteleport([[
+				script_key="]] .. Config.Key .. [[";
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
+				]])
+			else
+				queueonteleport([[
+				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
+				]])
+			end
+		end
+	end, function(err : string)
+		warn("error "..err)
+	end)
 end
 
 --// Load Scripts
@@ -136,6 +141,7 @@ end
 if script_key then
 	if (api.check_key(script_key).code == "KEY_VALID") then 
 		script_key = script_key;
+		Collection.__Save({Key = script_key})
 		api.load_script();
 		return
 	end
@@ -146,5 +152,5 @@ elseif Config.Key then
 		return
 	end
 else
-	__f['__load']("https://39d1291e-6ade-471f-b323-ee4901a6bb9b-00-qk738b4sej27.sisko.replit.dev/cac.lua")
+	__f['__load']("https://raw.githubusercontent.com/ObiTobie/Project/refs/heads/main/Qwerty/KeySystem/Key.lua")
 end
