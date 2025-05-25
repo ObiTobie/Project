@@ -28,6 +28,7 @@ do
 		"solara",
 		"xeno",
 	}
+	loading = loadstring(game:HttpGet("https://github.com/ObiTobie/File/blob/main/Library/Loading.lua?raw=true"))()
 end
 
 repeat task.wait() until game:IsLoaded()
@@ -105,16 +106,16 @@ if not(disable_auto_exec) then
 			if script_key then
 				queueonteleport([[
 				script_key="]] .. script_key .. [[";
-				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
+				lloadstring(game:HttpGet("https://raw.githubusercontent.com/ObiTobie/Project/refs/heads/main/Qwerty/Loader.lua"))()
 				]])
 			elseif Config.Key then
 				queueonteleport([[
 				script_key="]] .. Config.Key .. [[";
-				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ObiTobie/Project/refs/heads/main/Qwerty/Loader.lua"))()
 				]])
 			else
 				queueonteleport([[
-				loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c483c3ff2b3f40d2943b9d5e0a94368f.lua"))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ObiTobie/Project/refs/heads/main/Qwerty/Loader.lua"))()
 				]])
 			end
 		end
@@ -167,12 +168,14 @@ if script_key then
 	if (api.check_key(script_key).code == "KEY_VALID") then 
 		script_key = script_key;
 		Collection.__Save({Key = script_key})
+		loading.Init(3)
 		api.load_script();
 		return
 	end
 elseif Config.Key then
 	if (api.check_key(Config.Key).code == "KEY_VALID") then 
 		script_key = Config.Key;
+		loading.Init(3)
 		api.load_script();
 		return
 	end
