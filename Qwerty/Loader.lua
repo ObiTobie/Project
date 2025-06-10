@@ -6,9 +6,6 @@
 / /_/ /| |/ |/ /  __/ /  / /_/ /_/ /  / __  / /_/ / /_/ /
 \___\_\|__/|__/\___/_/   \__/\__, /  /_/ /_/\__,_/_.___/ 
                             /____/                       
-.gg/qwertyhub
-.gg/kbjmDpJnbE
-
 ]]
 
 do
@@ -82,33 +79,30 @@ if not(disable_auto_exec) then
 end
 
 --// Load Scripts
+
 __f = {
 	['__game'] = function()
 		return game["GameId"]
 	end;
-	__f = {
-		['__game'] = function()
-			return game["GameId"]
-		end;
-		['__load'] = function(url)
-			local response = (http and http.request or request)({
-				Url = url,
-				Method = "GET"
-			})
+	['__load'] = function(url)
+		local response = Request_Var({
+			Url = url,
+			Method = "GET"
+		})
 
-			if response and response.StatusCode == 200 then
-				local code = (load or loadstring)(response.Body)
-				if code then
-					code()
-				else
-					Client:Kick("Cannot Load Body")
-					return
-				end
+		if response and response.StatusCode == 200 then
+			local code = (load or loadstring)(response.Body)
+			if code then
+				code()
 			else
-				Client:Kick("ไอ้เหี้ยโง่ รันแแมพที่กูไม่ได้ทำควายชิบหาย")
+				Client:Kick("Cannot Load Body")
+				return
 			end
+		else
+			Client:Kick("ไอ้เหี้ยโง่ รันแแมพที่กูไม่ได้ทำควายชิบหาย")
 		end
-	}
+	end
 }
+
 
 __f['__load'](`https://raw.githubusercontent.com/ObiTobie/Project/refs/heads/main/Qwerty/Scripts/{__f['__game']()}.lua`)
