@@ -6,6 +6,9 @@
 / /_/ /| |/ |/ /  __/ /  / /_/ /_/ /  / __  / /_/ / /_/ /
 \___\_\|__/|__/\___/_/   \__/\__, /  /_/ /_/\__,_/_.___/ 
                             /____/                       
+.gg/qwertyhub
+.gg/kbjmDpJnbE
+
 ]]
 
 do
@@ -85,7 +88,7 @@ __f = {
 		return game["GameId"]
 	end;
 	['__load'] = function(url)
-		local response = Request_Var({
+		local response = (http and http.request or request)({
 			Url = url,
 			Method = "GET"
 		})
