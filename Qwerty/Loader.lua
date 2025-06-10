@@ -86,9 +86,29 @@ __f = {
 	['__game'] = function()
 		return game["GameId"]
 	end;
-	['__load'] = function(s : string) (load or loadstring)(game:HttpGet(s))() end;
-}
+	__f = {
+		['__game'] = function()
+			return game["GameId"]
+		end;
+		['__load'] = function(url)
+			local response = (http and http.request or request)({
+				Url = url,
+				Method = "GET"
+			})
 
-local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
+			if response and response.StatusCode == 200 then
+				local code = (load or loadstring)(response.Body)
+				if code then
+					code()
+				else
+					Client:Kick("Cannot Load Body")
+					return
+				end
+			else
+				Client:Kick("ไอ้เหี้ยโง่ รันแแมพที่กูไม่ได้ทำควายชิบหาย")
+			end
+		end
+	}
+}
 
 __f['__load'](`https://raw.githubusercontent.com/ObiTobie/Project/refs/heads/main/Qwerty/Scripts/{__f['__game']()}.lua`)
